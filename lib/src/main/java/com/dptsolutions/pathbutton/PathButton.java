@@ -52,7 +52,7 @@ public class PathButton extends Button {
         if(attrs != null) {
             TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.PathButton, defStyleAttr, defStyleRes);
             try{
-                strokeWidth = a.getDimension(R.styleable.PathButton_strokeWidth, defaultStrokeWidth);
+                strokeWidth = a.getDimension(R.styleable.PathButton_borderWidth, defaultStrokeWidth);
             } finally {
                 a.recycle();
             }

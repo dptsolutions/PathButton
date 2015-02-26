@@ -2,6 +2,6 @@
 <resources>
     <declare-styleable name="PathButton">
         <!-- Width of the path that is drawn -->
-        <attr name="strokeWidth" format="dimension" />
+        <attr name="borderWidth" format="dimension" />
     </declare-styleable>
 </resources>
