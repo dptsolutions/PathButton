@@ -2,6 +2,7 @@ package com.dptsolutions.pathbutton;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -15,34 +16,46 @@ import android.widget.Button;
  * Created by Donald on 11/23/2014.
  */
 public class PathButton extends Button {
+    private static final int DEFAULT_STROKE_WIDTH_DP = 2;
+
     public PathButton(Context context) {
         super(context);
-        init();
+        init(context, null, 0, 0);
     }
 
     public PathButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context, attrs, 0, 0);
     }
 
     public PathButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(context, attrs, defStyleAttr, 0);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public PathButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init();
+        init(context, attrs, defStyleAttr, defStyleRes);
     }
 
     Paint borderPaint;
     Path borderPath;
 
 
-    private void init() {
-        //TODO: Change this to take in a value from style
-        float strokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getContext().getResources().getDisplayMetrics());
+    private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        final float defaultStrokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_STROKE_WIDTH_DP, context.getResources().getDisplayMetrics());
+        float strokeWidth = defaultStrokeWidth;
+
+        if(attrs != null) {
+            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.PathButton, defStyleAttr, defStyleRes);
+            try{
+                strokeWidth = a.getDimension(R.styleable.PathButton_strokeWidth, defaultStrokeWidth);
+            } finally {
+                a.recycle();
+            }
+        }
+
         borderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         borderPaint.setStyle(Paint.Style.STROKE);
         borderPaint.setStrokeWidth(strokeWidth);
