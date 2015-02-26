@@ -18,21 +18,20 @@ import android.widget.Button;
  * of the button, and defaults to 2dp width.
  */
 public class PathButton extends Button {
-    private static final int DEFAULT_STROKE_WIDTH_DP = 2;
 
     public PathButton(Context context) {
         super(context);
-        init(context, null, 0, 0);
+        init(context, null, R.attr.pathButtonStyle, R.style.PathButton);
     }
 
     public PathButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs, 0, 0);
+        init(context, attrs, R.attr.pathButtonStyle, R.style.PathButton);
     }
 
     public PathButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs, defStyleAttr, 0);
+        init(context, attrs, defStyleAttr, R.style.PathButton);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -46,13 +45,13 @@ public class PathButton extends Button {
 
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        final float defaultStrokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_STROKE_WIDTH_DP, context.getResources().getDisplayMetrics());
-        float strokeWidth = defaultStrokeWidth;
+        final int defaultStrokeWidth = context.getResources().getDimensionPixelSize(R.dimen.path_button_default_border_width);
+        int strokeWidth = defaultStrokeWidth;
 
         if(attrs != null) {
             TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.PathButton, defStyleAttr, defStyleRes);
             try{
-                strokeWidth = a.getDimension(R.styleable.PathButton_borderWidth, defaultStrokeWidth);
+                strokeWidth = a.getDimensionPixelSize(R.styleable.PathButton_borderWidth, defaultStrokeWidth);
             } finally {
                 a.recycle();
             }
