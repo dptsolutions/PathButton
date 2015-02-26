@@ -13,7 +13,9 @@ import android.util.TypedValue;
 import android.widget.Button;
 
 /**
- * Created by Donald on 11/23/2014.
+ * A Button that draws a Path around the edges of itself, with
+ * curved ends. Path is the same color as the color of the text
+ * of the button, and defaults to 2dp width.
  */
 public class PathButton extends Button {
     private static final int DEFAULT_STROKE_WIDTH_DP = 2;
