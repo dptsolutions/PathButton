@@ -1,4 +1,4 @@
-package com.dptsolutions.pathbuttondemoapp;
+package com.dptsolutions.pathbutton;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
