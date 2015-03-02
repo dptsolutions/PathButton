@@ -26,9 +26,10 @@
         android:layout_marginBottom="10dp" />
 
     <com.dptsolutions.pathbutton.PathButton
+        android:id="@+id/programmatic_strokewidth_example"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="match_parent x match_parent" />
+        android:layout_height="48dp"
+        android:text="programatically set border to 10dp" />
 
 
 

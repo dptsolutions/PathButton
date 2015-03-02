@@ -97,5 +97,25 @@ public class PathButton extends Button {
 
     }
 
+    /**
+     * Set the width of the border. Cannot be less than 2dp
+     *
+     * @param pixels Width of the border to set, in pixels
+     */
+    public void setBorderWidth(int pixels) {
+        final int defaultStrokeWidth = getContext().getResources().getDimensionPixelSize(R.dimen.path_button_default_border_width);
+        int strokeWidth = pixels < defaultStrokeWidth ? defaultStrokeWidth : pixels;
+        borderPaint.setStrokeWidth(strokeWidth);
+        invalidate();
+    }
+
+    /**
+     * Get the width of the border
+     *
+     * @return Width of the border, in pixels
+     */
+    public int getBorderWidth() {
+        return (int) borderPaint.getStrokeWidth();
+    }
 
 }
