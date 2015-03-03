@@ -60,7 +60,6 @@ public class PathButton extends Button {
         borderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         borderPaint.setStyle(Paint.Style.STROKE);
         borderPaint.setStrokeWidth(strokeWidth);
-        borderPaint.setColor(getCurrentTextColor());
         borderPath = new Path();
 
     }
@@ -92,6 +91,7 @@ public class PathButton extends Button {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        borderPaint.setColor(getCurrentTextColor());
         canvas.drawPath(borderPath, borderPaint);
 
 

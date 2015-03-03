@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.dptsolutions.pathbutton.PathButton;
 
@@ -19,7 +21,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         //Set width of this button to 10dp programatically
-        programmaticTestButton = (PathButton)findViewById(R.id.programmatic_strokewidth_example);
+        programmaticTestButton = (PathButton)findViewById(R.id.programmatic_borderwidth_example);
         final float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
         programmaticTestButton.setBorderWidth((int) pixels);
     }
@@ -45,5 +47,10 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void buttonClicked(View view) {
+        PathButton button = (PathButton)view;
+        Toast.makeText(this, String.format("%s clicked!", button.getText()), Toast.LENGTH_SHORT).show();
     }
 }

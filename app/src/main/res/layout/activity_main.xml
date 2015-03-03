@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="wrap_content x wrap_content"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:onClick="buttonClicked" />
 
     <com.dptsolutions.pathbutton.PathButton
         android:layout_width="match_parent"
@@ -23,13 +24,22 @@
         app:borderWidth="5dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:onClick="buttonClicked" />
 
     <com.dptsolutions.pathbutton.PathButton
-        android:id="@+id/programmatic_strokewidth_example"
+        android:id="@+id/programmatic_borderwidth_example"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="programatically set border to 10dp" />
+        android:text="Programatically set border to 10dp"
+        android:onClick="buttonClicked" />
+
+    <com.dptsolutions.pathbutton.PathButton
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:textColor="@drawable/button_color_selector"
+        android:text="Color State List for TextColor"
+        android:onClick="buttonClicked" />
 
 
 
