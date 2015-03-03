@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="PathButton" parent="android:Widget.Button">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
         <item name="borderWidth">@dimen/path_button_default_border_width</item>
     </style>
 </resources>

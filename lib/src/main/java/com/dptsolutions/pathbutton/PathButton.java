@@ -2,11 +2,13 @@ package com.dptsolutions.pathbutton;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -43,15 +45,23 @@ public class PathButton extends Button {
     Paint borderPaint;
     Path borderPath;
 
-
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final int defaultStrokeWidth = context.getResources().getDimensionPixelSize(R.dimen.path_button_default_border_width);
         int strokeWidth = defaultStrokeWidth;
 
         if(attrs != null) {
             TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.PathButton, defStyleAttr, defStyleRes);
-            try{
+            try {
                 strokeWidth = a.getDimensionPixelSize(R.styleable.PathButton_borderWidth, defaultStrokeWidth);
+                Drawable b = a.getDrawable(R.styleable.PathButton_android_background);
+                if (b != null) {
+                    setBackground(b);
+                }
+                ColorStateList csl = a.getColorStateList(R.styleable.PathButton_android_textColor);
+                if (csl != null) {
+                    setTextColor(csl);
+                }
+
             } finally {
                 a.recycle();
             }
