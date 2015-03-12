@@ -5,15 +5,12 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.util.TypedValue;
 import android.widget.Button;
 
 /**
@@ -48,7 +45,7 @@ public class PathButton extends Button {
     Path borderPath;
     Paint fillPaint;
     Path fillPath;
-    int fillColor;
+    ColorStateList fillColors;
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final int defaultStrokeWidth = context.getResources().getDimensionPixelSize(R.dimen.path_button_default_border_width);
@@ -67,7 +64,11 @@ public class PathButton extends Button {
                     setTextColor(csl);
                 }
 
-                fillColor = a.getColor(R.styleable.PathButton_fillColor, context.getResources().getColor(android.R.color.transparent));
+                fillColors = a.getColorStateList(R.styleable.PathButton_fillColor);
+                if(fillColors == null) {
+                    fillColors = ColorStateList.valueOf(a.getColor(R.styleable.PathButton_fillColor, context.getResources().getColor(android.R.color.transparent)));
+                }
+
             } finally {
                 a.recycle();
             }
@@ -114,13 +115,21 @@ public class PathButton extends Button {
     @Override
     protected void onDraw(Canvas canvas) {
 
-        fillPaint.setColor(fillColor);
+        fillPaint.setColor(fillColors.getColorForState(getDrawableState(), 0));
         canvas.drawPath(fillPath, fillPaint);
 
         borderPaint.setColor(getCurrentTextColor());
         canvas.drawPath(borderPath, borderPaint);
 
         super.onDraw(canvas);
+    }
+
+    @Override
+    protected void drawableStateChanged() {
+        super.drawableStateChanged();
+        //Have to invalidate every time since TextView only invalidates if text color changes
+        //TODO: Cache fill state like TextView does for text colors, and only invalidate if necessary
+        invalidate();
     }
 
     /**
