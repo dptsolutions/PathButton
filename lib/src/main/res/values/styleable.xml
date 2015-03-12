@@ -3,6 +3,7 @@
     <declare-styleable name="PathButton">
         <!-- Width of the path that is drawn -->
         <attr name="borderWidth" format="dimension" />
+        <attr name="fillColor" format="color|reference" />
         <attr name="android:textColor" />
         <attr name="android:background" />
     </declare-styleable>

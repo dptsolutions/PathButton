@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
@@ -44,6 +45,8 @@ public class PathButton extends Button {
 
     Paint borderPaint;
     Path borderPath;
+    Paint fillPaint;
+    Path fillPath;
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final int defaultStrokeWidth = context.getResources().getDimensionPixelSize(R.dimen.path_button_default_border_width);
@@ -72,39 +75,57 @@ public class PathButton extends Button {
         borderPaint.setStrokeWidth(strokeWidth);
         borderPath = new Path();
 
+        fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        fillPaint.setStyle(Paint.Style.FILL);
+        fillPath = new Path();
+
+
+
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-
         float strokeWidth = borderPaint.getStrokeWidth();
         float radius = (float)( (h - (2 * strokeWidth)) / 2.0);
-        RectF leftArcRect = new RectF();
-        RectF rightArcRect = new RectF();
+        RectF outerLeftArcRect = new RectF();
+        RectF outerRightArcRect = new RectF();
 
-        leftArcRect.set(strokeWidth, strokeWidth, strokeWidth + radius * 2, h - strokeWidth);
-        rightArcRect.set(w - strokeWidth - (2 * radius), strokeWidth, w - strokeWidth, h - strokeWidth);
-
+        outerLeftArcRect.set(strokeWidth, strokeWidth, strokeWidth + radius * 2, h - strokeWidth);
+        outerRightArcRect.set(w - strokeWidth - (2 * radius), strokeWidth, w - strokeWidth, h - strokeWidth);
 
         borderPath.reset();
-        borderPath.addArc(leftArcRect, 90, 180);
-        borderPath.addArc(rightArcRect, 270, 180);
+        borderPath.addArc(outerLeftArcRect, 90, 180);
+        borderPath.addArc(outerRightArcRect, 270, 180);
         borderPath.moveTo(strokeWidth + radius, strokeWidth);
         borderPath.lineTo(w - strokeWidth - radius, strokeWidth);
         borderPath.moveTo(strokeWidth + radius, h - strokeWidth);
         borderPath.lineTo(w - strokeWidth - radius, h - strokeWidth);
+
+        fillPath.reset();
+        fillPath.addArc(outerLeftArcRect, 90, 180);
+        fillPath.addArc(outerRightArcRect, 270, 180);
+        fillPath.moveTo(strokeWidth + radius, strokeWidth);
+        fillPath.lineTo(w - strokeWidth - radius, strokeWidth);
+        fillPath.lineTo(w - strokeWidth - radius, h - strokeWidth);
+        fillPath.lineTo(strokeWidth + radius, h - strokeWidth);
+        fillPath.lineTo(strokeWidth + radius, strokeWidth);
+        fillPath.close();
+
+
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+
+        fillPaint.setColor(Color.RED);
+        canvas.drawPath(fillPath, fillPaint);
 
         borderPaint.setColor(getCurrentTextColor());
         canvas.drawPath(borderPath, borderPaint);
 
-
+        super.onDraw(canvas);
     }
 
     /**
