@@ -12,6 +12,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.widget.Button;
 
@@ -47,6 +48,7 @@ public class PathButton extends Button {
     Path borderPath;
     Paint fillPaint;
     Path fillPath;
+    int fillColor;
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final int defaultStrokeWidth = context.getResources().getDimensionPixelSize(R.dimen.path_button_default_border_width);
@@ -65,6 +67,7 @@ public class PathButton extends Button {
                     setTextColor(csl);
                 }
 
+                fillColor = a.getColor(R.styleable.PathButton_fillColor, context.getResources().getColor(android.R.color.transparent));
             } finally {
                 a.recycle();
             }
@@ -78,22 +81,16 @@ public class PathButton extends Button {
         fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         fillPaint.setStyle(Paint.Style.FILL);
         fillPath = new Path();
-
-
-
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        float strokeWidth = borderPaint.getStrokeWidth();
-        float radius = (float)( (h - (2 * strokeWidth)) / 2.0);
-        RectF outerLeftArcRect = new RectF();
-        RectF outerRightArcRect = new RectF();
-
-        outerLeftArcRect.set(strokeWidth, strokeWidth, strokeWidth + radius * 2, h - strokeWidth);
-        outerRightArcRect.set(w - strokeWidth - (2 * radius), strokeWidth, w - strokeWidth, h - strokeWidth);
+        final float strokeWidth = borderPaint.getStrokeWidth();
+        final float radius = (float)( (h - (2 * strokeWidth)) / 2.0);
+        final RectF outerLeftArcRect = new RectF(strokeWidth, strokeWidth, strokeWidth + radius * 2, h - strokeWidth);
+        final RectF outerRightArcRect = new RectF(w - strokeWidth - (2 * radius), strokeWidth, w - strokeWidth, h - strokeWidth);
 
         borderPath.reset();
         borderPath.addArc(outerLeftArcRect, 90, 180);
@@ -112,14 +109,12 @@ public class PathButton extends Button {
         fillPath.lineTo(strokeWidth + radius, h - strokeWidth);
         fillPath.lineTo(strokeWidth + radius, strokeWidth);
         fillPath.close();
-
-
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
 
-        fillPaint.setColor(Color.RED);
+        fillPaint.setColor(fillColor);
         canvas.drawPath(fillPath, fillPaint);
 
         borderPaint.setColor(getCurrentTextColor());
