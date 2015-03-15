@@ -154,6 +154,8 @@ public class PathButton extends Button {
     /**
      * Set the width of the border of the PathButton. Cannot be less than 2dp
      *
+     * @see #getBorderWidth() 
+     *
      * @param pixels Width of the border to set, in pixels
      */
     public void setBorderWidth(int pixels) {
@@ -166,6 +168,8 @@ public class PathButton extends Button {
     /**
      * Get the width of the border of the PathButton
      *
+     * @see #setBorderWidth(int)
+     *
      * @return Width of the border, in pixels
      */
     public int getBorderWidth() {
@@ -173,16 +177,19 @@ public class PathButton extends Button {
     }
 
     /**
-     * Gets the fill colors for the different states (normal, selected, focused) of the PathButton.
+     * Gets the fill colors for the different states (normal, pressed, focused) of the PathButton.
      *
-     * @see com.dptsolutions.pathbutton.PathButton#setFillColors(android.content.res.ColorStateList)
-     *
+     * @see #setFillColors(android.content.res.ColorStateList)
+     * @see #setFillColor(int)
      */
     public ColorStateList getFillColors() {
         return fillColors;
     }
     /**
-     * Sets the fill colors for the different states (normal, pressed) of the PathButton.
+     * Sets the fill colors for the different states (normal, pressed, focused) of the PathButton.
+     *
+     * @see #getFillColors()
+     * @see #setFillColor(int)
      */
     public void setFillColors(ColorStateList colors) {
         if(colors == null) {
@@ -192,7 +199,10 @@ public class PathButton extends Button {
         updateFillColor();
     }
     /**
-     * Sets the fill color for all the states (normal, pressed) to be this color.
+     * Sets the fill color for all the states (normal, pressed, focused) to be this color.
+     *
+     * @see #setFillColor(int)
+     * @see #getFillColors()
      */
     public void setFillColor(int color) {
         fillColors = ColorStateList.valueOf(color);
