@@ -8,8 +8,24 @@
     </style>
 
     <style name="AppTheme.PathButton" parent="PathButton">
-       <!-- <item name="android:textColor">@android:color/holo_red_dark</item>-->
-        <!--<item name="fillColor">@android:color/holo_red_dark</item>-->
+       <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="AppTheme.PathButton.WithPadding" parent="AppTheme.PathButton">
+        <item name="android:paddingTop">@dimen/default_path_button_horizontal_padding</item>
+        <item name="android:paddingBottom">@dimen/default_path_button_horizontal_padding</item>
+        <item name="android:paddingLeft">@dimen/default_path_button_vertical_padding</item>
+        <item name="android:paddingRight">@dimen/default_path_button_vertical_padding</item>
+    </style>
+
+    <style name="AppTheme.PathButton.AlternateColors" parent="AppTheme.PathButton.WithPadding">
+        <item name="android:textColor">@drawable/alternate_text_colors</item>
+        <item name="fillColor">@drawable/alternate_fill_colors</item>
+    </style>
+
+    <style name="AppTheme.PathButton.SolidSingleColor" parent="AppTheme.PathButton.WithPadding">
+        <item name="android:textColor">@android:color/holo_red_dark</item>
+        <item name="fillColor">@android:color/holo_red_light</item>
     </style>
 
 </resources>

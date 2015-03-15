@@ -22,13 +22,11 @@ import android.widget.Button;
 public class PathButton extends Button {
 
     public PathButton(Context context) {
-        super(context);
-        init(context, null, R.attr.pathButtonStyle, R.style.PathButton);
+        this(context, null);
     }
 
     public PathButton(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context, attrs, R.attr.pathButtonStyle, R.style.PathButton);
+        this(context, attrs, R.attr.pathButtonStyle);
     }
 
     public PathButton(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -57,14 +55,6 @@ public class PathButton extends Button {
             TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.PathButton, defStyleAttr, defStyleRes);
             try {
                 strokeWidth = a.getDimensionPixelSize(R.styleable.PathButton_borderWidth, defaultStrokeWidth);
-                Drawable b = a.getDrawable(R.styleable.PathButton_android_background);
-                if (b != null) {
-                    setBackground(b);
-                }
-                ColorStateList csl = a.getColorStateList(R.styleable.PathButton_android_textColor);
-                if (csl != null) {
-                    setTextColor(csl);
-                }
 
                 fillColors = a.getColorStateList(R.styleable.PathButton_fillColor);
                 if(fillColors == null) {
@@ -154,7 +144,7 @@ public class PathButton extends Button {
     /**
      * Set the width of the border of the PathButton. Cannot be less than 2dp
      *
-     * @see #getBorderWidth() 
+     * @see #getBorderWidth()
      *
      * @param pixels Width of the border to set, in pixels
      */
