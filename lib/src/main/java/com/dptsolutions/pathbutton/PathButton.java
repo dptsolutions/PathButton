@@ -16,7 +16,8 @@ import android.widget.Button;
 /**
  * A Button that draws a Path around the edges of itself, with
  * curved ends. Path is the same color as the color of the text
- * of the button, and defaults to 2dp width.
+ * of the button, and defaults to 2dp width. Area inside path can
+ * be filled with a different color from the border.
  */
 public class PathButton extends Button {
 
@@ -41,11 +42,12 @@ public class PathButton extends Button {
         init(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    Paint borderPaint;
-    Path borderPath;
-    Paint fillPaint;
-    Path fillPath;
-    ColorStateList fillColors;
+    private Paint borderPaint;
+    private Path borderPath;
+    private Paint fillPaint;
+    private Path fillPath;
+    private ColorStateList fillColors;
+    private int currentFillColor;
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final int defaultStrokeWidth = context.getResources().getDimensionPixelSize(R.dimen.path_button_default_border_width);
@@ -84,6 +86,21 @@ public class PathButton extends Button {
         fillPath = new Path();
     }
 
+    private void updateFillColor() {
+        boolean shouldInvalidate = false;
+
+        //Only invalidate if fill color has changed
+        int color = fillColors.getColorForState(getDrawableState(), 0);
+        if(currentFillColor != color) {
+            currentFillColor = color;
+            shouldInvalidate = true;
+        }
+
+        if(shouldInvalidate) {
+            invalidate();
+        }
+    }
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -115,7 +132,7 @@ public class PathButton extends Button {
     @Override
     protected void onDraw(Canvas canvas) {
 
-        fillPaint.setColor(fillColors.getColorForState(getDrawableState(), 0));
+        fillPaint.setColor(currentFillColor);
         canvas.drawPath(fillPath, fillPaint);
 
         borderPaint.setColor(getCurrentTextColor());
@@ -127,13 +144,15 @@ public class PathButton extends Button {
     @Override
     protected void drawableStateChanged() {
         super.drawableStateChanged();
-        //Have to invalidate every time since TextView only invalidates if text color changes
-        //TODO: Cache fill state like TextView does for text colors, and only invalidate if necessary
-        invalidate();
+
+        //Update the current fill color only if it can change
+        if(fillColors != null && fillColors.isStateful()) {
+            updateFillColor();
+        }
     }
 
     /**
-     * Set the width of the border. Cannot be less than 2dp
+     * Set the width of the border of the PathButton. Cannot be less than 2dp
      *
      * @param pixels Width of the border to set, in pixels
      */
@@ -145,12 +164,39 @@ public class PathButton extends Button {
     }
 
     /**
-     * Get the width of the border
+     * Get the width of the border of the PathButton
      *
      * @return Width of the border, in pixels
      */
     public int getBorderWidth() {
         return (int) borderPaint.getStrokeWidth();
+    }
+
+    /**
+     * Gets the fill colors for the different states (normal, selected, focused) of the PathButton.
+     *
+     * @see com.dptsolutions.pathbutton.PathButton#setFillColors(android.content.res.ColorStateList)
+     *
+     */
+    public ColorStateList getFillColors() {
+        return fillColors;
+    }
+    /**
+     * Sets the fill colors for the different states (normal, pressed) of the PathButton.
+     */
+    public void setFillColors(ColorStateList colors) {
+        if(colors == null) {
+            throw new NullPointerException();
+        }
+        fillColors = colors;
+        updateFillColor();
+    }
+    /**
+     * Sets the fill color for all the states (normal, pressed) to be this color.
+     */
+    public void setFillColor(int color) {
+        fillColors = ColorStateList.valueOf(color);
+        updateFillColor();
     }
 
 }
