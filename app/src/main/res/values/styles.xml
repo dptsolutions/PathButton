@@ -23,8 +23,8 @@
     </style>
 
     <style name="AppTheme.PathButton.AlternateColors" parent="AppTheme.PathButton.WithPadding">
-        <item name="android:textColor">@drawable/alternate_text_colors</item>
-        <item name="fillColor">@drawable/alternate_fill_colors</item>
+        <item name="android:textColor">@color/alternate_text_colors</item>
+        <item name="fillColor">@color/alternate_fill_colors</item>
     </style>
 
     <style name="AppTheme.PathButton.SolidSingleColor" parent="AppTheme.PathButton.WithPadding">

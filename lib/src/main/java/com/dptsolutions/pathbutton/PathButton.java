@@ -31,13 +31,13 @@ public class PathButton extends Button {
 
     public PathButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs, defStyleAttr, R.style.PathButton);
+        init(attrs, defStyleAttr, R.style.PathButton);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public PathButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs, defStyleAttr, defStyleRes);
+        init(attrs, defStyleAttr, defStyleRes);
     }
 
     private Paint borderPaint;
@@ -47,23 +47,33 @@ public class PathButton extends Button {
     private ColorStateList fillColors;
     private int currentFillColor;
 
-    private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        final int defaultStrokeWidth = context.getResources().getDimensionPixelSize(R.dimen.path_button_default_border_width);
+    private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        final int defaultStrokeWidth = getResources().getDimensionPixelSize(R.dimen.path_button_default_border_width);
+
+        //Initialize default values in case there are no attrs
         int strokeWidth = defaultStrokeWidth;
+        fillColors = getResources().getColorStateList(R.color.default_fill_colors);
 
         if(attrs != null) {
-            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.PathButton, defStyleAttr, defStyleRes);
+            TypedArray a = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.PathButton, defStyleAttr, defStyleRes);
             try {
                 strokeWidth = a.getDimensionPixelSize(R.styleable.PathButton_borderWidth, defaultStrokeWidth);
 
-                fillColors = a.getColorStateList(R.styleable.PathButton_fillColor);
-                if(fillColors == null) {
-                    fillColors = ColorStateList.valueOf(a.getColor(R.styleable.PathButton_fillColor, context.getResources().getColor(android.R.color.transparent)));
+                final ColorStateList fillColorAttrValue = a.getColorStateList(R.styleable.PathButton_fillColor);
+                if(fillColorAttrValue != null) {
+                    fillColors = fillColorAttrValue;
                 }
 
             } finally {
                 a.recycle();
             }
+        }
+
+        //If fillColors isn't stateful, then the code to update the color will never fire
+        //in drawableStateChange. So initialize currentFillColor to the default color
+        //(the only color in fillColors)
+        if(!fillColors.isStateful()) {
+            currentFillColor = fillColors.getDefaultColor();
         }
 
         borderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -154,7 +164,6 @@ public class PathButton extends Button {
         borderPaint.setStrokeWidth(strokeWidth);
         invalidate();
     }
-
     /**
      * Get the width of the border of the PathButton
      *
@@ -165,7 +174,6 @@ public class PathButton extends Button {
     public int getBorderWidth() {
         return (int) borderPaint.getStrokeWidth();
     }
-
     /**
      * Gets the fill colors for the different states (normal, pressed, focused) of the PathButton.
      *

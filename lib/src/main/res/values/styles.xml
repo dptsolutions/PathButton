@@ -3,7 +3,7 @@
     <style name="PathButton" parent="android:Widget.Button">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textColor">?android:textColorPrimary</item>
-        <item name="fillColor">@drawable/default_fill_colors</item>
+        <item name="fillColor">@color/default_fill_colors</item>
         <item name="borderWidth">@dimen/path_button_default_border_width</item>
     </style>
 </resources>
