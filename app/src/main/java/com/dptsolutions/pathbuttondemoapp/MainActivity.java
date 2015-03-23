@@ -47,7 +47,7 @@ public class MainActivity extends ActionBarActivity {
         alternateColorsButton.setFillColors(getResources().getColorStateList(R.color.alternate_fill_colors));
         buttonsContainer.addView(alternateColorsButton);
 
-        //Alternate Colors example
+        //Solid Color example
         PathButton solidColorButton = new PathButton(this);
         solidColorButton.setOnClickListener(clickListener);
         solidColorButton.setLayoutParams(params);
