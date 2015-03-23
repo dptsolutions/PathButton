@@ -1,6 +1,5 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -11,78 +10,75 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="XML Examples"
-            android:layout_marginBottom="10dp"/>
+            android:text="@string/label_xml_examples"
+            android:layout_marginBottom="@dimen/default_path_button_horizontal_margin"/>
 
         <com.dptsolutions.pathbutton.PathButton
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="wrap_content x wrap_content"
-            android:onClick="buttonClicked" />
+            android:text="@string/label_wrap_content_by_wrap_content"
+            android:onClick="buttonClicked"
+            android:layout_marginBottom="@dimen/default_path_button_horizontal_margin"/>
 
         <com.dptsolutions.pathbutton.PathButton
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_path_button_height"
-            android:text="match_parent x default_path_button_height"
-            android:onClick="buttonClicked" />
+            android:text="@string/label_match_parent_by_default_height"
+            android:onClick="buttonClicked"
+            android:layout_marginBottom="@dimen/default_path_button_horizontal_margin"/>
 
         <com.dptsolutions.pathbutton.PathButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="wrap_content, default padding"
+            android:text="@string/label_wrap_content_with_default_padding"
             style="@style/AppTheme.PathButton.WithPadding"
-            android:onClick="buttonClicked" />
+            android:onClick="buttonClicked"
+            android:layout_marginBottom="@dimen/default_path_button_horizontal_margin"/>
 
         <com.dptsolutions.pathbutton.PathButton
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="wrap_content x 60dp"
+            android:text="@string/label_wrap_content_by_60dp_default_padding"
             style="@style/AppTheme.PathButton.WithPadding"
-            android:onClick="buttonClicked" />
+            android:onClick="buttonClicked"
+            android:layout_marginBottom="@dimen/default_path_button_horizontal_margin"/>
 
         <com.dptsolutions.pathbutton.PathButton
             android:layout_width="wrap_content"
             android:layout_height="@dimen/default_path_button_height"
-            android:text="Custom border width"
-            style="@style/AppTheme.PathButton.WithPadding"
-            app:borderWidth="5dp"
-            android:onClick="buttonClicked" />
+            android:text="@string/label_custom_border_width"
+            style="@style/AppTheme.PathButton.ThickBorder"
+            android:onClick="buttonClicked"
+            android:layout_marginBottom="@dimen/default_path_button_horizontal_margin"/>
 
         <com.dptsolutions.pathbutton.PathButton
             android:layout_width="wrap_content"
             android:layout_height="@dimen/default_path_button_height"
-            android:text="Alternate text/fill colors"
+            android:text="@string/label_alternate_colors"
             style="@style/AppTheme.PathButton.AlternateColors"
-            android:onClick="buttonClicked" />
+            android:onClick="buttonClicked"
+            android:layout_marginBottom="@dimen/default_path_button_horizontal_margin"/>
 
         <com.dptsolutions.pathbutton.PathButton
             android:layout_width="wrap_content"
             android:layout_height="@dimen/default_path_button_height"
-            android:text="Solid text/fill color"
+            android:text="@string/label_solid_color"
             style="@style/AppTheme.PathButton.SolidSingleColor"
-            android:onClick="buttonClicked" />
+            android:onClick="buttonClicked"
+            android:layout_marginBottom="@dimen/default_path_button_horizontal_margin"/>
 
-
-
-        <com.dptsolutions.pathbutton.PathButton
-            android:id="@+id/programmatic_borderwidth_example"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/default_path_button_height"
-            android:text="Programatically set border to 10dp"
-            android:onClick="buttonClicked" />
+            android:layout_height="wrap_content"
+            android:text="@string/label_programmatic_examples"
+            android:layout_marginBottom="@dimen/default_path_button_horizontal_margin"/>
 
-        <com.dptsolutions.pathbutton.PathButton
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/default_path_button_height"
-            android:textColor="@drawable/alternate_text_colors"
-            android:text="Color State List for TextColor"
-            android:onClick="buttonClicked" />
     </LinearLayout>
 
 </ScrollView>
