@@ -1,7 +1,7 @@
 package com.dptsolutions.pathbuttondemoapp;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.dptsolutions.pathbutton.PathButton;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     ViewGroup buttonsContainer;
 
@@ -20,7 +20,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        buttonsContainer = (ViewGroup) findViewById(R.id.buttons_container);
+        buttonsContainer = findViewById(R.id.buttons_container);
         final int horizontalMargin = getResources().getDimensionPixelSize(R.dimen.default_path_button_horizontal_margin);
         final int verticalPadding = getResources().getDimensionPixelSize(R.dimen.default_path_button_vertical_padding);
         final int horizontalPadding = getResources().getDimensionPixelSize(R.dimen.default_path_button_horizontal_padding);
@@ -59,12 +59,7 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    private View.OnClickListener clickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            buttonClicked(v);
-        }
-    };
+    private View.OnClickListener clickListener = this::buttonClicked;
 
     public void buttonClicked(View view) {
         PathButton button = (PathButton)view;
